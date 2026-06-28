@@ -1,15 +1,19 @@
-from flask import Flask
+from flask import Flask, request
+from telegram_bot import send_message, send_photo
+from whatsapp_api import download_media
 
 app = Flask(__name__)
 
+VERIFY_TOKEN = "datekin123"
+
 @app.route("/")
 def home():
-    return "Hello Railway!"
+    return "WhatsApp Bridge Running!"
 
 @app.route("/webhook", methods=["GET"])
 def verify():
-    return "Webhook OK"
-
+    ...
+    
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    return "EVENT_RECEIVED", 200
+    ...
