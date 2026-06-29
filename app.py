@@ -56,21 +56,25 @@ def webhook():
             )
 
         elif message["type"] == "image":
+
             media_id = message["image"]["id"]
             caption = message["image"].get("caption", "")
+
             photo = download_media(media_id)
 
             telegram_caption = (
                 "📷 WhatsApp Photo\n\n"
-                f"👤 From: {sender}\n\n"
-    )
+                f"👤 {contact_name}\n"
+                f"📱 {sender}\n\n"
+            )
 
-        if caption:
-            telegram_caption += f"📝 Caption:\n{caption}"
-            
-        send_photo(photo, telegram_caption)
+            if caption:
+                telegram_caption += f"📝 Caption:\n{caption}"
+
+            send_photo(photo, telegram_caption)
 
     except Exception as e:
         print("Error:", e)
+    print("Error:", e)
 
     return "OK", 200
