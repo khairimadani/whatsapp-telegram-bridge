@@ -1,3 +1,4 @@
+processed_messages = set()
 from flask import Flask, request
 from telegram_bot import send_message, send_photo
 from whatsapp_api import download_media
@@ -39,6 +40,12 @@ def webhook():
             return "OK", 200
 
         message = value["messages"][0]
+        message_id = message["id"]
+
+        if message_id in processed_messages:
+            print("Duplicate ignored:", message_id)
+            return "OK", 200
+        processed_messages.add(message_id)
         sender = message["from"]
         contact_name = sender
         
