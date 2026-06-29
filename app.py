@@ -1,4 +1,5 @@
 processed_messages = set()
+print("Processed IDs:", processed_messages)
 from flask import Flask, request
 from telegram_bot import send_message, send_photo
 from whatsapp_api import download_media
