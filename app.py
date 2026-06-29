@@ -40,14 +40,19 @@ def webhook():
 
         message = value["messages"][0]
         sender = message["from"]
+        contact_name = sender
+        
+        if "contacts" in value:
+            contact_name = value["contacts"][0]["profile"]["name"]
 
         if message["type"] == "text":
             text = message["text"]["body"]
 
             send_message(
-                f"📩 WhatsApp\n\n"
-                f"From: {sender}\n\n"
-                f"{text}"
+                f"📩 WhatsApp Message\n\n"
+                f"👤 {contact_name}\n"
+                f"📱 {sender}\n\n"
+                f"💬 {text}"
             )
 
         elif message["type"] == "image":
