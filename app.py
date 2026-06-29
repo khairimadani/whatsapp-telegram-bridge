@@ -41,6 +41,8 @@ def webhook():
 
         message = value["messages"][0]
         message_id = message["id"]
+        print("MESSAGE ID:", message_id)
+        print("TIMESTAMP:", message["timestamp"])
 
         if message_id in processed_messages:
             print("Duplicate ignored:", message_id)
