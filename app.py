@@ -79,6 +79,5 @@ def webhook():
 
     except Exception as e:
         print("Error:", e)
-    print("Error:", e)
-
+        
     return "OK", 200
