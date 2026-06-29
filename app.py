@@ -39,6 +39,10 @@ def webhook():
             return "OK", 200
 
         message = value["messages"][0]
+        print("=" * 50)
+        print("MESSAGE ID:", message["id"])
+        print("TYPE:", message["type"])
+        print("=" * 50)
         sender = message["from"]
         contact_name = sender
         
