@@ -52,15 +52,18 @@ def webhook():
 
         elif message["type"] == "image":
             media_id = message["image"]["id"]
-
+            caption = message["image"].get("caption", "")
             photo = download_media(media_id)
 
-            send_photo(photo, f"📷 Image from {sender}")
+            telegram_caption = (
+                "📷 WhatsApp Photo\n\n"
+                f"👤 From: {sender}\n\n"
+    )
 
-        else:
-            send_message(
-                f"Unsupported message type: {message['type']}"
-            )
+        if caption:
+            telegram_caption += f"📝 Caption:\n{caption}"
+            
+        send_photo(photo, telegram_caption)
 
     except Exception as e:
         print("Error:", e)
