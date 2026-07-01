@@ -14,7 +14,7 @@ def send_message(text):
         last_response = requests.post(
         url,
         json={
-        "chat_id": CHANNEL_ID,
+        "chat_id": chat_id,
         "text": text
         }
     )
@@ -34,7 +34,7 @@ def send_photo(photo_path, caption=""):
             last_response = requests.post(
     url,
     data={
-        "chat_id": GROUP_ID,
+        "chat_id": chat_id,
         "message_thread_id": GROUP_TOPIC_ID,
         "caption": caption
     },
