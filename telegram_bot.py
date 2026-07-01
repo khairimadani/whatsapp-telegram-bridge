@@ -9,18 +9,34 @@ BASE_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
 def send_message(text):
     url = f"{BASE_URL}/sendMessage"
 
-    for chat_id in CHAT_IDS:
-
-        payload = {
-            "chat_id": chat_id,
+    # Send to channel
+    response = requests.post(
+        url,
+        json={
+            "chat_id": CHANNEL_ID,
             "text": text
         }
+    )
 
-        # Only add topic when sending to the group
-        if chat_id == GROUP_ID:
-            payload["message_thread_id"] = GROUP_TOPIC_ID
+    print("CHANNEL")
+    print(response.status_code)
+    print(response.text)
 
-        requests.post(url, json=payload)
+    # Send to DATEK topic
+    response = requests.post(
+        url,
+        json={
+            "chat_id": GROUP_ID,
+            "message_thread_id": GROUP_TOPIC_ID,
+            "text": text
+        }
+    )
+
+    print("GROUP")
+    print(response.status_code)
+    print(response.text)
+    
+    requests.post(url, json=payload)
 
 
 def send_photo(photo_path, caption=""):
