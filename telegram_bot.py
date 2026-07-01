@@ -8,9 +8,10 @@ def send_message(text):
 
     url = f"{BASE_URL}/sendMessage"
 
-    for chat_id in CHAT_IDS:
+    last_response = None
 
-        requests.post(
+    for chat_id in CHAT_IDS:
+        last_response = requests.post(
             url,
             json={
                 "chat_id": chat_id,
@@ -18,17 +19,19 @@ def send_message(text):
             }
         )
 
-    return response.json()
+    return last_response.json() if last_response else None
 
 def send_photo(photo_path, caption=""):
 
     url = f"{BASE_URL}/sendPhoto"
 
+    last_response = None
+
     for chat_id in CHAT_IDS:
 
         with open(photo_path, "rb") as photo:
 
-            requests.post(
+            last_response = requests.post(
                 url,
                 data={
                     "chat_id": chat_id,
@@ -39,4 +42,4 @@ def send_photo(photo_path, caption=""):
                 }
             )
 
-    return response.json()
+    return last_response.json() if last_response else None
